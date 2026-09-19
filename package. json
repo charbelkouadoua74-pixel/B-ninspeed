@@ -1,1 +1,9 @@
-{  "name":"beninspeed",  "version":"1.0.0",  "private":true,  "description":"BeninSpeed internet speed test",  "main":"server/server.js",  "scripts":{"start":"node server/server.js"},  "dependencies":{"express":"^5.1.0"}}
+{
+  "name": "Vitesse Calavi",
+  "short_name": "CalaviSpeed",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffcc00",
+  "theme_color": "#ffcc00",
+  "icons": [{"src": "https://cdn-icons-png.flaticon.com/512/724/724715.png","sizes": "512x512","type": "image/png"}]
+}
