@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#06140f">
+  <meta name="description" content="BeninSpeed, test de connexion mobile et Wi‑Fi.">
+  <title>BeninSpeed • Test de connexion</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="bg-orb orb-a"></div><div class="bg-orb orb-b"></div>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><span>⚡</span></div>
+        <div>
+          <div class="brand-name">Benin<span>Speed</span></div>
+          <div class="brand-sub">Testez votre connexion</div>
+        </div>
+      </div>
+      <div class="live-dot"><i></i><span>EN LIGNE</span></div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-kicker">VITESSE INTERNET</div>
+      <h1>Découvrez votre vraie vitesse.</h1>
+      <p>Mesurez la latence, le téléchargement et l’envoi de données.</p>
+    </section>
+
+    <!-- Sélecteur de serveur -->
+    <div class="server-card" id="serverSelector" role="button" tabindex="0">
+      <div class="server-icon">🖥️</div>
+      <div class="server-info">
+        <span>SERVEUR</span>
+        <strong id="serverName">Cotonou • Auto</strong>
+      </div>
+      <div class="server-ping" id="serverLatency">— ms</div>
+      <div class="chevron">›</div>
+    </div>
+
+    <section class="tester-card">
+      <div class="gauge-wrap" aria-live="polite">
+        <svg class="gauge" viewBox="0 0 220 220" role="img" aria-label="Jauge de vitesse">
+          <circle class="gauge-track" cx="110" cy="110" r="88"></circle>
+          <circle id="gaugeProgress" class="gauge-progress" cx="110" cy="110" r="88"></circle>
+        </svg>
+        <div class="gauge-center">
+          <div id="gaugeValue" class="gauge-value">0</div>
+          <div id="gaugeUnit" class="gauge-unit">Mbps</div>
+          <div id="gaugePhase" class="gauge-phase">PRÊT</div>
+        </div>
+      </div>
+
+      <div class="status-row">
+        <span id="statusDot" class="status-dot"></span>
+        <span id="statusLine">Prêt à tester</span>
+      </div>
+
+      <button id="testButton" class="test-button" type="button">
+        <span class="button-icon">▶</span><span id="buttonText">Tester ma connexion</span>
+      </button>
+      <p class="tap-hint">Appuyez pour lancer un test réel</p>
+    </section>
+
+    <!-- Panneau de résultats pro -->
+    <section class="results-panel" id="resultsPanel">
+      <div class="results-title">RÉSULTAT DU TEST</div>
+      <div class="results-grid">
+        <div class="results-item">
+          <div class="ri-label">DOWNLOAD</div>
+          <div class="ri-value" id="resDownload">—</div>
+          <div class="ri-unit">Mbps</div>
+        </div>
+        <div class="results-item">
+          <div class="ri-label">UPLOAD</div>
+          <div class="ri-value" id="resUpload">—</div>
+          <div class="ri-unit">Mbps</div>
+        </div>
+        <div class="results-item">
+          <div class="ri-label">PING</div>
+          <div class="ri-value" id="resPing">—</div>
+          <div class="ri-unit">ms</div>
+        </div>
+        <div class="results-item">
+          <div class="ri-label">JITTER</div>
+          <div class="ri-value" id="resJitter">—</div>
+          <div class="ri-unit">ms</div>
+        </div>
+      </div>
+      <div class="results-meta" id="resultsMeta">—</div>
+      <div class="share-row">
+        <button class="share-btn primary" id="shareBtn" type="button">📤 Partager</button>
+        <button class="share-btn secondary" id="copyBtn" type="button">📋 Copier</button>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="Résultats">
+      <article id="metric-ping" class="metric-card pending">
+        <div class="metric-icon">⌁</div><div class="metric-label">PING</div>
+        <div class="metric-value"><strong id="pingValue">—</strong><span>ms</span></div>
+        <div class="metric-note">Latence</div>
+      </article>
+      <article id="metric-download" class="metric-card pending">
+        <div class="metric-icon">↓</div><div class="metric-label">DOWNLOAD</div>
+        <div class="metric-value"><strong id="downloadValue">—</strong><span>Mbps</span></div>
+        <div class="metric-note">Réception</div>
+      </article>
+      <article id="metric-upload" class="metric-card pending">
+        <div class="metric-icon">↑</div><div class="metric-label">UPLOAD</div>
+        <div class="metric-value"><strong id="uploadValue">—</strong><span>Mbps</span></div>
+        <div class="metric-note">Envoi</div>
+      </article>
+      <article id="metric-jitter" class="metric-card pending">
+        <div class="metric-icon">≈</div><div class="metric-label">JITTER</div>
+        <div class="metric-value"><strong id="jitterValue">—</strong><span>ms</span></div>
+        <div class="metric-note">Stabilité</div>
+      </article>
+    </section>
+
+    <section class="connection-card">
+      <div class="connection-icon">📶</div>
+      <div class="connection-copy">
+        <span>CONNEXION</span>
+        <strong id="connectionType">Détection…</strong>
+      </div>
+      <div id="serverBadge" class="server-badge">SERVEUR LOCAL</div>
+    </section>
+
+    <!-- ISP -->
+    <section class="isp-card" id="ispCard">
+      <div class="isp-icon">🏢</div>
+      <div class="isp-copy">
+        <span>OPÉRATEUR / ISP</span>
+        <strong id="ispName">Détection…</strong>
+      </div>
+    </section>
+
+    <!-- Historique -->
+    <section class="history-card">
+      <div class="history-title">
+        <span>HISTORIQUE</span>
+        <button type="button" id="clearHistory">Effacer</button>
+      </div>
+      <div class="history-list" id="historyList">
+        <div class="history-empty">Aucun test enregistré pour le moment</div>
+      </div>
+    </section>
+
+    <section class="tips-card">
+      <div class="tips-title">Pour un résultat plus fiable</div>
+      <ul>
+        <li>Fermez les téléchargements en arrière-plan.</li>
+        <li>Restez proche de votre routeur en Wi‑Fi.</li>
+        <li>Les résultats peuvent varier selon le réseau.</li>
+      </ul>
+    </section>
+
+    <footer>BeninSpeed <span>•</span> Mesure indicative de votre connexion</footer>
+  </main>
+
+  <!-- Modal sélection serveur -->
+  <div class="modal-overlay" id="serverModal">
+    <div class="modal">
+      <h3>Choisir un serveur</h3>
+      <div id="serverList"></div>
+      <button class="modal-close" id="closeModal" type="button">Fermer</button>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+            </html>
+            
